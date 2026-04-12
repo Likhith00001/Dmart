@@ -1,4 +1,11 @@
-.PHONY: up down build test lint tidy
+.PHONY: help up down build tidy test lint
+
+help:
+	@echo "Available commands:"
+	@echo "  make up      - Start all services"
+	@echo "  make down    - Stop all services"
+	@echo "  make build   - Build all services"
+	@echo "  make tidy    - Clean go modules"
 
 up:
 	docker-compose up --build -d
@@ -17,5 +24,3 @@ test:
 
 lint:
 	golangci-lint run
-
-# Add per-service commands later, e.g., make user-up
