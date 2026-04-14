@@ -59,7 +59,22 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-
+  
+  order-service:
+    build:
+      context: .
+      dockerfile: order-service/docker/Dockerfile
+    container_name: ecommerce-order-service
+    restart: unless-stopped
+    ports:
+      - "8083:8083"
+    environment:
+      SERVER_PORT: 8083
+      SERVER_ENV: development
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/order_db?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
 volumes:
   postgres_data:
   redis_data:
